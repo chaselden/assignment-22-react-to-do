@@ -26,7 +26,6 @@ const TodoListItems = React.createClass({
    },
 
    updateCheck: function(item) {
-    //  console.log('parentNode', item);
      console.log("text", item.innerText);
      let text = item.innerText
 
@@ -65,7 +64,7 @@ const TodoListItems = React.createClass({
 var TodoBanner = React.createClass({
 	  render: function(){
 		  return (
-			  <h1>Sh¡t  I  Gotta  Do</h1>
+			  <h1># Sh¡t  I  Gotta  Do : </h1>
 
 		  )
 	  }
@@ -80,7 +79,6 @@ var TodoList = React.createClass({
         let self = this
 
     		return(
-
                <ul className= "to-do-container">
                  {this.props.items.map(function(item, i){return <div key={i} ><li><input onChange={self.handleCheck} type="checkbox" checked={item.completed}/>{item.text}</li></div>})}
                </ul>
@@ -88,33 +86,39 @@ var TodoList = React.createClass({
   	},
 
 });
-
 var TodoForm = React.createClass({
 
-	handleSubmit: function(e){
+	_handleSubmit: function(e){
 		e.preventDefault();
-    // if(this.refs.itemInput.value === 0)
-    // this.refs.itemInput.value = this.refs.itemInput
+    console.log( 'this sucks',this.refs.itemInput.value);
+    // **************************************//
+    // if(this.refs.itemInput.value === ""){
+    //  this.refs.itemInput.value = null
+  // }
 		this.props.onFormSubmit(this.refs.itemInput.value);
-		this.refs.itemInput.value = ''
+		 this.refs.itemInput.value = ''
 		return
 	},
 
-  handleRemove: function(e){
+  _handleRemove: function(e){
     e.preventDefault();
     this.props.removeCompleted()
     },
 
   // %%%%%%%%%%%%% SHIT SUBMISSION AREA %%%%%%%%%%%%%%% //
 	render: function(){
+    var required = true;
+    var disabled = false;
     		return(
           <div>
-        			<form onSubmit={this.handleSubmit}>
-                <input type='submit' value='Add Sh¡t'/>
+        			<form onSubmit={this._handleSubmit}>
+              <input type='text'  ref='itemInput' disabled={disabled} required={required} />
                   <br/>
-        				<input type='text'  ref='itemInput' />
                   <br/>
-                <input type="button" value="Remove Sh¡t" onClick={this.handleRemove}/>
+              <input type ='submit' value='# Add Some More-Sh¡t...'/>
+                  <br/>
+                  <br/>
+                <input type ="button" value="# Delete That Bull-Sh¡t !" onClick={this._handleRemove}/>
         			</form>
           </div>
 		)
